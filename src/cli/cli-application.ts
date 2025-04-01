@@ -1,4 +1,4 @@
-import { CommandParser } from "./commandParser.js";
+import { CommandParser } from './commandParser.js';
 import { ICommand } from '../commands/commandInterface.js';
 
 

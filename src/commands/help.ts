@@ -1,4 +1,4 @@
-import { ICommand } from "./commandInterface.js";
+import { ICommand } from './commandInterface.js';
 
 
 export class HelpCommand implements ICommand {

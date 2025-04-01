@@ -1,5 +1,5 @@
-import { ICommand } from "./commandInterface.js";
-import { TSVFileReader } from "../shared/fileReader/tsvFileReader.js";
+import { ICommand } from './commandInterface.js';
+import { TSVFileReader } from '../shared/fileReader/tsvFileReader.js';
 
 
 export class ImportCommand implements ICommand {
