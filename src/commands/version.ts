@@ -27,7 +27,7 @@ export class VersionCommand implements ICommand {
     if(!isPackageJSONConfig(importedContent)) {
       throw new Error('Failed to parse json content/');
     }
-  
+
     return importedContent.version;
   }
 
