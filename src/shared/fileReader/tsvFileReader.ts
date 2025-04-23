@@ -30,6 +30,6 @@ export class TSVFileReader extends EventEmitter implements IFileReader {
       }
     }
 
-      this.emit('end', importedRowCount);
+    this.emit('end', importedRowCount);
   }
 }
