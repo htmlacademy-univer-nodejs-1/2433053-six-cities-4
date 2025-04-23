@@ -8,11 +8,11 @@ export function getRandomItems<T>(items: T[], exactCount?: number): T[] {
   const endPosition = startPosition + count;
   return items.slice(startPosition, endPosition);
 }
-  
+
 export function getRandomItem<T>(items: T[]):T {
   return items[generateRandomValue(0, items.length - 1)];
 }
-  
+
 export function getErrorMessage(error: unknown): string {
   return error instanceof Error ? error.message : '';
 }
