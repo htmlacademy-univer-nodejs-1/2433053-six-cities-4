@@ -2,9 +2,9 @@ import { User } from './user.js';
 
 export type City = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
-export type HousingType = 'apartment' | 'house' | 'room' | 'hotel';
+export type HouseType = 'apartment' | 'house' | 'room' | 'hotel';
 
-export type Amenity = 'Breakfast' | 'Air conditioning' | 'Laptop friendly workspace' | 'Baby seat' | 'Washer' | 'Towels' | 'Fridge';
+export type Amentity = 'Breakfast' | 'Air conditioning' | 'Laptop friendly workspace' | 'Baby seat' | 'Washer' | 'Towels' | 'Fridge';
 
 export enum Coordinates {
   Paris = 'latitude: 48.85661, longitude: 2.351499',
@@ -20,16 +20,16 @@ export type Offer = {
   description: string;
   publicationDate: Date;
   city: City;
-  previewImage: string;
-  housingPhotos: string[];
+  previewPhoto: string;
+  photos: string[];
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
-  housingType: HousingType;
-  roomsCount: number;
+  type: HouseType;
+  roomCount: number;
   guestsCount: number;
-  rentPrice: number;
-  amenities: Amenity[];
+  price: number;
+  amentities: Amentity[];
   author: User;
   coordinates: Coordinates;
 };

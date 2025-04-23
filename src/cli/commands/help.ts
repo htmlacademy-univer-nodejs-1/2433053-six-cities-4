@@ -15,7 +15,7 @@ export class HelpCommand implements ICommand {
         --version:                       
         --help:                          
         --import <path>:                 
-        -- generate <n> <path> <url>     
+        --generate <n> <path> <url>     
     `);
   }
 }

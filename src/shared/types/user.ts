@@ -1,4 +1,4 @@
-type UserType = 'Base' | 'Pro'
+export type UserType = 'Base' | 'Pro'
 export type User = {
     name: string;
     email: string;
