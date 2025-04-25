@@ -8,16 +8,16 @@ import got from 'got';
 export class GenerateCommand implements ICommand {
   private initialData!: MockServerData;
 
-  private async load(url: string): Promise<void> {
+  private async load(url: string) {
     try {
       const response = await got.get(url);
-      this.initialData = JSON.parse(response.body) as MockServerData;
-    } catch (error) {
-      throw new Error(`Can't load data from ${url}`);
+      this.initialData = JSON.parse(response.body);
+    } catch (error : unknown) {
+      throw new Error(`Can't load data from ${url}: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 
-  private async write(filepath: string, offerCount: number): Promise<void> {
+  private async write(filepath: string, offerCount: number) {
     const tsvOfferGenerator = new TSVOfferGenerator(this.initialData);
     const tsvFileWriter = new TSVFileWriter(filepath);
 
