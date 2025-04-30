@@ -1,8 +1,8 @@
-export type UserType = 'Base' | 'Pro'
+import { UserType } from './userTypeEnum.js';
+
 export type User = {
     name: string;
     email: string;
-    avatarPath?: string;
-    password: string;
+    avatar: string | null;
     type: UserType;
   }
