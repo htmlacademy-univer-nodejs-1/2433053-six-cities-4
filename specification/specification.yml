@@ -1,0 +1,560 @@
+openapi: 3.0.0
+info:
+  title: Rental Offers API
+  description: API for managing rental offers, users and comments
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Development server
+tags:
+  - name: Users
+    description: User management
+  - name: Offers
+    description: Rental offers management
+  - name: Comments
+    description: Comments management
+  - name: Favorites
+    description: Favorites management
+  - name: Auth
+    description: Authentication
+
+paths:
+  /users:
+    post:
+      tags: [Users]
+      summary: Create a new user
+      description: Register a new user in the system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid input data
+        '409':
+          description: Email already exists
+
+  /users/login:
+    post:
+      tags: [Auth]
+      summary: Login user
+      description: Authenticate user and return JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 6
+                  maxLength: 12
+              required: [email, password]
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Invalid credentials
+
+  /offers:
+    get:
+      tags: [Offers]
+      summary: Get list of rental offers
+      description: Returns a list of rental offers with pagination
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 60
+          description: Maximum number of offers to return
+      responses:
+        '200':
+          description: A list of offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfferShort'
+    post:
+      tags: [Offers]
+      summary: Create a new offer
+      description: Create a new rental offer (authenticated users only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferCreate'
+      responses:
+        '201':
+          description: Offer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferFull'
+        '400':
+          description: Invalid input data
+        '401':
+          description: Unauthorized
+
+  /offers/{offerId}:
+    get:
+      tags: [Offers]
+      summary: Get offer details
+      description: Get detailed information about a specific offer
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Offer details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferFull'
+        '404':
+          description: Offer not found
+    patch:
+      tags: [Offers]
+      summary: Update offer
+      description: Update an existing offer (owner only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferUpdate'
+      responses:
+        '200':
+          description: Offer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferFull'
+        '400':
+          description: Invalid input data
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden (not owner)
+        '404':
+          description: Offer not found
+    delete:
+      tags: [Offers]
+      summary: Delete offer
+      description: Delete an offer (owner only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Offer deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden (not owner)
+        '404':
+          description: Offer not found
+
+  /offers/premium/{city}:
+    get:
+      tags: [Offers]
+      summary: Get premium offers for city
+      description: Returns up to 3 premium offers for specified city
+      parameters:
+        - in: path
+          name: city
+          required: true
+          schema:
+            type: string
+            enum: [Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf]
+      responses:
+        '200':
+          description: List of premium offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfferShort'
+
+  /offers/{offerId}/comments:
+    get:
+      tags: [Comments]
+      summary: Get comments for offer
+      description: Returns up to 50 comments for specified offer
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of comments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '404':
+          description: Offer not found
+    post:
+      tags: [Comments]
+      summary: Add comment to offer
+      description: Add a new comment to offer (authenticated users only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentCreate'
+      responses:
+        '201':
+          description: Comment added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid input data
+        '401':
+          description: Unauthorized
+        '404':
+          description: Offer not found
+
+  /favorites:
+    get:
+      tags: [Favorites]
+      summary: Get favorite offers
+      description: Returns user's favorite offers (authenticated users only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of favorite offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfferShort'
+        '401':
+          description: Unauthorized
+
+  /favorites/{offerId}:
+    post:
+      tags: [Favorites]
+      summary: Add offer to favorites
+      description: Add offer to user's favorites (authenticated users only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Offer added to favorites
+        '401':
+          description: Unauthorized
+        '404':
+          description: Offer not found
+    delete:
+      tags: [Favorites]
+      summary: Remove offer from favorites
+      description: Remove offer from user's favorites (authenticated users only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Offer removed from favorites
+        '401':
+          description: Unauthorized
+        '404':
+          description: Offer not found
+
+components:
+  schemas:
+    UserCreate:
+      type: object
+      required: [name, email, password, type]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 15
+        email:
+          type: string
+          format: email
+        avatar:
+          type: string
+          format: binary
+        password:
+          type: string
+          minLength: 6
+          maxLength: 12
+        type:
+          type: string
+          enum: [обычный, pro]
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        avatar:
+          type: string
+        type:
+          type: string
+
+    OfferCreate:
+      type: object
+      required: [title, description, city, previewImage, images, isPremium, type, bedrooms, maxAdults, price, goods, location]
+      properties:
+        title:
+          type: string
+          minLength: 10
+          maxLength: 100
+        description:
+          type: string
+          minLength: 20
+          maxLength: 1024
+        city:
+          type: string
+          enum: [Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf]
+        previewImage:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+          minItems: 6
+          maxItems: 6
+        isPremium:
+          type: boolean
+        type:
+          type: string
+          enum: [apartment, house, room, hotel]
+        bedrooms:
+          type: integer
+          minimum: 1
+          maximum: 8
+        maxAdults:
+          type: integer
+          minimum: 1
+          maximum: 10
+        price:
+          type: integer
+          minimum: 100
+          maximum: 100000
+        goods:
+          type: array
+          items:
+            type: string
+            enum: [Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge]
+        location:
+          $ref: '#/components/schemas/Location'
+
+    OfferUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 10
+          maxLength: 100
+        description:
+          type: string
+          minLength: 20
+          maxLength: 1024
+        city:
+          type: string
+          enum: [Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf]
+        previewImage:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+          minItems: 6
+          maxItems: 6
+        isPremium:
+          type: boolean
+        type:
+          type: string
+          enum: [apartment, house, room, hotel]
+        bedrooms:
+          type: integer
+          minimum: 1
+          maximum: 8
+        maxAdults:
+          type: integer
+          minimum: 1
+          maximum: 10
+        price:
+          type: integer
+          minimum: 100
+          maximum: 100000
+        goods:
+          type: array
+          items:
+            type: string
+            enum: [Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge]
+        location:
+          $ref: '#/components/schemas/Location'
+
+    OfferShort:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        isFavorite:
+          type: boolean
+        date:
+          type: string
+          format: date-time
+        city:
+          type: string
+        previewImage:
+          type: string
+        isPremium:
+          type: boolean
+        rating:
+          type: number
+          minimum: 1
+          maximum: 5
+        commentsCount:
+          type: integer
+        price:
+          type: integer
+
+    OfferFull:
+      allOf:
+        - $ref: '#/components/schemas/OfferShort'
+        - type: object
+          properties:
+            description:
+              type: string
+            images:
+              type: array
+              items:
+                type: string
+            bedrooms:
+              type: integer
+            maxAdults:
+              type: integer
+            goods:
+              type: array
+              items:
+                type: string
+            host:
+              $ref: '#/components/schemas/UserResponse'
+            location:
+              $ref: '#/components/schemas/Location'
+
+    CommentCreate:
+      type: object
+      required: [text, rating]
+      properties:
+        text:
+          type: string
+          minLength: 5
+          maxLength: 1024
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        date:
+          type: string
+          format: date-time
+        rating:
+          type: integer
+        user:
+          $ref: '#/components/schemas/UserResponse'
+
+    Location:
+      type: object
+      required: [latitude, longitude]
+      properties:
+        latitude:
+          type: number
+        longitude:
+          type: number
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
