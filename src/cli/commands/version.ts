@@ -1,6 +1,6 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
 import { ICommand } from './commandInterface.js';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 type TPackageJSONConfig = {
     version: string;

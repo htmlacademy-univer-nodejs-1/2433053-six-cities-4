@@ -2,8 +2,8 @@ export * from './user.js';
 export * from './offer.js';
 export * from './comment.js';
 export * from './mockServerData.js';
-export * from './amentityEnum.js'
-export * from './cityEnum.js'
-export * from './houseTypeEnum.js'
-export * from './userTypeEnum.js'
-export * from './coordinatesEnum.js'
+export * from './amentityEnum.js';
+export * from './cityEnum.js';
+export * from './houseTypeEnum.js';
+export * from './userTypeEnum.js';
+export * from './coordinatesEnum.js';
