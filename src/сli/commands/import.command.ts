@@ -83,6 +83,7 @@ export class ImportCommand implements Command {
     );
 
     await this.offerService.create({
+      userId: user.id,
       title: offer.title,
       description: offer.description,
       previewPath: offer.previewPath,
