@@ -1,147 +1,93 @@
 {
-    "api": {
-      "titles": [
-        "Уютная квартира",
-        "Семейный дом с садом",
-        "Комфортабельная квартира",
-        "Супер загадочный дом",
-        "Милые апартаменты",
-        "Яркий отель для молодых"
-      ],
-      "descriptions": [
-        "Прекрасная квартира с видом на Эйфелеву башню и исторический центр города. Идеально подходит для пары или небольшой семьи. Близко к метро и основным достопримечательностям.",
-        "Просторный дом с большим садом, идеальный для семейного отдыха или компании друзей. Расположен в тихом жилом районе недалеко от центра города. В доме есть все необходимое для комфортного проживания.",
-        "Стильная и уютная квартира с современным дизайном и всеми удобствами для комфортного пребывания. Расположенная в удобном районе с легким доступом к транспорту и магазинам.",
-        "Загадочный дом, пропитанный атмосферой тайны и загадок, идеально подходящий для любителей необычных приключений...",
-        "Яркий и стильный отель, созданный специально для молодых путешественников. С богатой программой развлечений и уютными номерами."
-      ],
-      "postDates": [
-        "2024-02-19T08:45:40.283Z",
-        "2024-03-10T08:45:40.283Z",
-        "2024-02-15T08:45:40.283Z",
-        "2024-01-12T08:45:40.283Z",
-        "2024-01-09T08:45:40.283Z",
-        "2024-03-06T08:45:40.283Z"
-      ],
-      "cities": [
-        "Paris",
-        "Amsterdam",
-        "Cologne",
-        "Brussels",
-        "Hamburg",
-        "Dusseldorf"
-      ],
-      "previewPhotos": [
-        "prev-photo-a.jpg",
-        "prev-photo-a.jpg",
-        "prev-photo-c.jpg",
-        "prev-photo-b.jpg",
-        "prev-photo-h.jpg",
-        "prev-photo-d.jpg"
-      ],
-      "photos": [
-        "photo-1.jpg",
-        "photo-2.jpg",
-        "photo-3.jpg",
-        "photo-4.jpg",
-        "photo-5.jpg",
-        "photo-6.jpg",
-        "photo-7.jpg",
-        "photo-8.jpg",
-        "photo-9.jpg",
-        "photo-10.jpg"
-      ],
-      "isPremiums": [
-        true,
-        false
-      ],
-      "isFavorites": [
-        true,
-        false
-      ],
-      "ratings": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "types": [
-        "apartament",
-        "house",
-        "room",
-        "hotel"
-      ],
-      "roomCounts": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-      ],
-      "guestsCounts": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "prices": [
-        100,
-        300,
-        900,
-        5000,
-        10000,
-        99000
-      ],
-      "facilities": [
-        "Breakfast",
-        "Air conditioning",
-        "Laptop friendly workspace",
-        "Baby seat",
-        "Washer",
-        "Towels",
-        "Fridge"
-      ],
-      "authorNames": [
-        "Fred",
-        "Lora",
-        "Daniel",
-        "Sofia",
-        "Alex",
-        "Maria"
-      ],
-      "authorEmails": [
-        "fred@example.com",
-        "lora@example.com",
-        "daniel@example.com",
-        "sofia@example.com",
-        "alex@example.com",
-        "maria@example.com"
-      ],
-      "authorAvatars": [
-        "fred-avatar.jpg",
-        "lora-avatar.jpg",
-        "daniel-avatar.jpg",
-        "sofia-avatar.jpg",
-        "alex-avatar.jpg",
-        "maria-avatar.jpg"
-      ],
-      "coordinates": [
-        "latitude: 48.85661, longitude: 2.351499",
-        "latitude: 52.370216, longitude: 4.895168",
-        "latitude: 50.938361, longitude: 6.959974",
-        "latitude: 50.846557, longitude: 4.351697",
-        "latitude: 53.550341, longitude: 10.000654",
-        "latitude: 51.225402, longitude: 6.776314"
-      ]
-    }
+  "api": {
+    "titles": [
+      "Уютная квартира в центре Парижа",
+      "Современный дом в Амстердаме",
+      "Студия с видом на реку в Кёльне",
+      "Просторный лофт в Брюсселе",
+      "Комната в старинном доме в Дюссельдорфе",
+      "Отельный номер в центре Гамбурга"
+    ],
+    "descriptions": [
+      "Квартира с современным ремонтом и балконом, расположенная рядом с метро и магазинами.",
+      "Семейный дом с садом и террасой в зелёном районе города.",
+      "Небольшая студия с видом на реку и всем необходимым для комфортной жизни.",
+      "Лофт с дизайнерским интерьером, высокими потолками и панорамными окнами.",
+      "Атмосферная комната в историческом здании с уютной обстановкой.",
+      "Комфортный отельный номер с полным обслуживанием в центре города."
+    ],
+    "cities": [
+      "Paris",
+      "Amsterdam",
+      "Cologne",
+      "Brussels",
+      "Dusseldorf",
+      "Hamburg"
+    ],
+    "previewImages": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+      "https://images.unsplash.com/photo-1572120360610-d971b9b78827",
+      "https://images.unsplash.com/photo-1586105251261-72a756497a12",
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227",
+      "https://images.unsplash.com/photo-1560448075-bb4c3b88e4b1"
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+      "https://images.unsplash.com/photo-1572120360610-d971b9b78827",
+      "https://images.unsplash.com/photo-1586105251261-72a756497a12",
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227",
+      "https://images.unsplash.com/photo-1560448075-bb4c3b88e4b1"
+    ],
+    "apartmentTypes": [
+      "apartment",
+      "house",
+      "room",
+      "hotel"
+    ],
+    "amenities": [
+      "Wi-Fi",
+      "Air conditioning",
+      "Washer",
+      "Towels",
+      "Fridge",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Breakfast"
+    ],
+    "userNames": [
+      "Иван Иванов",
+      "Мария Смирнова",
+      "Анна Каренина",
+      "Роланд Дискейн",
+      "Холи Гибни"
+    ],
+    "emails": [
+      "ivan@example.com",
+      "maria@example.com",
+      "anna@example.com",
+      "roland@example.com",
+      "holly@example.com"
+    ],
+    "avatarImages": [
+      "https://randomuser.me/api/portraits/men/1.jpg",
+      "https://randomuser.me/api/portraits/women/2.jpg",
+      "https://randomuser.me/api/portraits/women/3.jpg",
+      "https://randomuser.me/api/portraits/men/4.jpg",
+      "https://randomuser.me/api/portraits/men/5.jpg"
+    ],
+    "userTypes": [
+      "base",
+      "pro"
+    ],
+    "coordinates": [
+      [48.85661, 2.351499],
+      [52.370216, 4.895168],
+      [50.938361, 6.959974],
+      [50.846557, 4.351697],
+      [51.225402, 6.776314],
+      [53.550341, 10.000654]
+    ]
   }
+}
