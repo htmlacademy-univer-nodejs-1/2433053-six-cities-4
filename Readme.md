@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Мария Иванова](https://up.htmlacademy.ru/univer-nodejs-api/4/user/2432609).
-* Наставник: [Глеб Клецков](https://htmlacademy.ru/profile/id1487865).
+* Студент: [Богдан Шустик](https://up.htmlacademy.ru/univer-nodejs-api/4/user/2433053).
+* Наставник: `Глеб Клецков`.
 
 ---
 
