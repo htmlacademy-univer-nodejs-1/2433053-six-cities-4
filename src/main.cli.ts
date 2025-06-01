@@ -1,17 +1,17 @@
-#!/usr/bin/env node
 import 'reflect-metadata';
-import { CLIApplication, GenerateCommand, HelpCommand, VersionCommand, ImportCommand } from './cli/index.js';
+import { CLIApplication, GenerateCommand, HelpCommand, ImportCommand, VersionCommand } from './сli/index.js';
 
 function bootstrap() {
-  const cliApplication = new CLIApplication();
-  cliApplication.registredCommands([
+  const cliApp = new CLIApplication();
+
+  cliApp.registerCommands([
     new HelpCommand(),
     new VersionCommand(),
-    new ImportCommand(),
     new GenerateCommand(),
+    new ImportCommand()
   ]);
 
-  cliApplication.processCommand(process.argv);
+  cliApp.processCommand(process.argv);
 }
 
 bootstrap();

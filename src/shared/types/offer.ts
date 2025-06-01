@@ -1,23 +1,25 @@
-import { Comment } from './comment.js';
+import { Amenities } from './amenities.js';
+import { ApartmentType } from './apartment.js';
+import { City } from './city.js';
 import { User } from './user.js';
-import { Amentity, City, HouseType, Coordinates } from './index.js';
 
 export type Offer = {
   title: string;
   description: string;
-  publicationDate: Date;
+  date: Date;
   city: City;
-  previewPhoto: string;
-  photos: string[];
+  previewPath: string;
+  images: string[];
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
-  houseType: HouseType;
-  roomsCount: number;
-  guestsCount: number;
-  price: number;
-  amentities: Amentity[];
+  apartmentType: ApartmentType;
+  roomCount: number;
+  guestCount: number;
+  cost: number;
+  amenities: Amenities[];
   author: User;
-  numberComments: number;
-  coordinates: Coordinates
+  commentCount: number;
+  latitude: number;
+  longitude: number;
 };
