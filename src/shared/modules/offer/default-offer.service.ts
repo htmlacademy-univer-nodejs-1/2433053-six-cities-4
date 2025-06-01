@@ -7,7 +7,6 @@ import { Component } from '../../types/component.enum.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { City } from '../../types/index.js';
 import { FavoriteEntity } from '../favorite/favorite.entity.js';
-import { CommentEntity } from '../comment/comment.entity.js';
 
 
 @injectable()
@@ -17,8 +16,6 @@ export class DefaultOfferService implements OfferService {
     private readonly offerModel: types.ModelType<OfferEntity>,
     @inject(Component.FavoriteModel)
     private readonly favoriteModel: types.ModelType<FavoriteEntity>,
-    @inject(Component.CommentModel)
-    private readonly commentModel: types.ModelType<CommentEntity>
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
@@ -61,15 +58,6 @@ export class DefaultOfferService implements OfferService {
   public async findPremiumOffersByCity(city: City, userId?: string): Promise<DocumentType<OfferEntity>[]> {
     const offers = await this.offerModel.find({ city, isPremium: true }).limit(3).exec();
     return this.getWithFavorites(offers, userId);
-  }
-
-  public async updateRating(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    const comments = await this.commentModel.find({ offerId }).exec();
-    const ratings = comments.map((comment) => comment.rating);
-    const totalRating = ratings.reduce((acc, rating) => acc + rating, 0);
-    const avgRating = ratings.length ? totalRating / ratings.length : 0;
-
-    return this.offerModel.findByIdAndUpdate(offerId, { rating: avgRating }, { new: true }).exec();
   }
 
   public async getUserFavorites(userId: string): Promise<DocumentType<OfferEntity>[]> {
